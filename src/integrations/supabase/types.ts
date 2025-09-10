@@ -14,7 +14,69 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          age: number
+          bio: string | null
+          body_shape: string | null
+          created_at: string
+          experience: number | null
+          expertise: string[] | null
+          fashion_interests: string[] | null
+          gender: string | null
+          height: number | null
+          id: string
+          location: string
+          name: string
+          portfolio_image_url: string | null
+          updated_at: string
+          user_id: string
+          user_type: string
+          waist: number | null
+          weight: number | null
+        }
+        Insert: {
+          age: number
+          bio?: string | null
+          body_shape?: string | null
+          created_at?: string
+          experience?: number | null
+          expertise?: string[] | null
+          fashion_interests?: string[] | null
+          gender?: string | null
+          height?: number | null
+          id?: string
+          location: string
+          name: string
+          portfolio_image_url?: string | null
+          updated_at?: string
+          user_id: string
+          user_type: string
+          waist?: number | null
+          weight?: number | null
+        }
+        Update: {
+          age?: number
+          bio?: string | null
+          body_shape?: string | null
+          created_at?: string
+          experience?: number | null
+          expertise?: string[] | null
+          fashion_interests?: string[] | null
+          gender?: string | null
+          height?: number | null
+          id?: string
+          location?: string
+          name?: string
+          portfolio_image_url?: string | null
+          updated_at?: string
+          user_id?: string
+          user_type?: string
+          waist?: number | null
+          weight?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
