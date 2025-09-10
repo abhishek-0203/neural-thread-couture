@@ -13,6 +13,12 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        'playfair': ['Playfair Display', 'serif'],
+        'merriweather': ['Merriweather', 'serif'],
+        'vintage-serif': ['Playfair Display', 'Cormorant Garamond', 'serif'],
+        'vintage-body': ['Merriweather', 'Lora', 'serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -57,6 +63,26 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Vintage Color Palette
+        vintage: {
+          ink: "hsl(var(--vintage-ink))",
+          sepia: "hsl(var(--vintage-sepia))",
+          charcoal: "hsl(var(--vintage-charcoal))",
+          gold: "hsl(var(--vintage-gold))",
+          burgundy: "hsl(var(--vintage-burgundy))",
+          sage: "hsl(var(--vintage-sage))",
+          parchment: "hsl(var(--vintage-parchment))",
+          cream: "hsl(var(--vintage-cream))",
+        },
+      },
+      backgroundImage: {
+        'gradient-vintage-paper': 'var(--gradient-vintage-paper)',
+        'gradient-antique-gold': 'var(--gradient-antique-gold)',
+        'gradient-vintage-shadow': 'var(--gradient-vintage-shadow)',
+      },
+      textShadow: {
+        'vintage-subtle': 'var(--text-shadow-subtle)',
+        'vintage-elegant': 'var(--text-shadow-elegant)',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -87,5 +113,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("tailwindcss-textshadow")],
 } satisfies Config;

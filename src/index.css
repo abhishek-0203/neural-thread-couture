@@ -1,96 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Merriweather:wght@300;400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* Neural Threads & Cognitive Couture Design System - Vintage Luxury Aesthetic
+All colors MUST be HSL - Antique manuscript inspired palette
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Vintage Parchment Background */
+    --background: 30 15% 95%;
+    --foreground: 25 35% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Antique Card Design */
+    --card: 28 20% 97%;
+    --card-foreground: 25 35% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Popover Elements */
+    --popover: 28 20% 97%;
+    --popover-foreground: 25 35% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Espresso Brown Primary - Deep & Rich */
+    --primary: 15 25% 18%;
+    --primary-foreground: 30 15% 95%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Muted Grayish Brown Secondary */
+    --secondary: 25 15% 85%;
+    --secondary-foreground: 25 20% 35%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Soft Vintage Muted Tones */
+    --muted: 25 12% 88%;
+    --muted-foreground: 25 20% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Antique Gold Accents */
+    --accent: 45 45% 55%;
+    --accent-foreground: 25 35% 15%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Antique Burgundy for Destructive */
+    --destructive: 0 45% 35%;
+    --destructive-foreground: 30 15% 95%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Subtle Vintage Borders */
+    --border: 25 15% 82%;
+    --input: 25 15% 90%;
+    --ring: 45 45% 55%;
 
-    --radius: 0.5rem;
+    /* Elegant Rounded Corners */
+    --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Vintage Sidebar Tones */
+    --sidebar-background: 28 18% 94%;
+    --sidebar-foreground: 25 25% 25%;
+    --sidebar-primary: 15 25% 18%;
+    --sidebar-primary-foreground: 30 15% 95%;
+    --sidebar-accent: 25 12% 88%;
+    --sidebar-accent-foreground: 25 25% 25%;
+    --sidebar-border: 25 15% 82%;
+    --sidebar-ring: 45 45% 55%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* Custom Vintage Color Palette */
+    --vintage-ink: 25 35% 15%;
+    --vintage-sepia: 15 25% 18%;
+    --vintage-charcoal: 0 0% 17%;
+    --vintage-gold: 45 45% 55%;
+    --vintage-burgundy: 0 45% 35%;
+    --vintage-sage: 135 20% 35%;
+    --vintage-parchment: 30 15% 95%;
+    --vintage-cream: 35 25% 92%;
 
-    --sidebar-primary: 240 5.9% 10%;
+    /* Text Shadows for Vintage Effect */
+    --text-shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.1);
+    --text-shadow-elegant: 0 2px 4px rgba(0, 0, 0, 0.15);
 
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Vintage Gradients */
+    --gradient-vintage-paper: linear-gradient(135deg, hsl(35 25% 92%) 0%, hsl(30 15% 95%) 100%);
+    --gradient-antique-gold: linear-gradient(135deg, hsl(45 45% 55%) 0%, hsl(40 35% 45%) 100%);
+    --gradient-vintage-shadow: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.05) 100%);
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark Vintage - Rich Espresso Background */
+    --background: 15 25% 8%;
+    --foreground: 30 15% 90%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    /* Dark Antique Cards */
+    --card: 15 25% 10%;
+    --card-foreground: 30 15% 90%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    /* Dark Popover */
+    --popover: 15 25% 10%;
+    --popover-foreground: 30 15% 90%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    /* Antique Gold Primary in Dark */
+    --primary: 45 45% 65%;
+    --primary-foreground: 15 25% 8%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    /* Dark Secondary Tones */
+    --secondary: 15 15% 15%;
+    --secondary-foreground: 30 15% 85%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    /* Dark Muted */
+    --muted: 15 15% 12%;
+    --muted-foreground: 25 15% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    /* Gold Accent Dark Mode */
+    --accent: 45 45% 65%;
+    --accent-foreground: 15 25% 8%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    /* Dark Destructive */
+    --destructive: 0 55% 45%;
+    --destructive-foreground: 30 15% 90%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Dark Borders */
+    --border: 15 15% 18%;
+    --input: 15 15% 15%;
+    --ring: 45 45% 65%;
+
+    /* Dark Sidebar */
+    --sidebar-background: 15 25% 6%;
+    --sidebar-foreground: 30 15% 85%;
+    --sidebar-primary: 45 45% 65%;
+    --sidebar-primary-foreground: 15 25% 8%;
+    --sidebar-accent: 15 15% 12%;
+    --sidebar-accent-foreground: 30 15% 85%;
+    --sidebar-border: 15 15% 18%;
+    --sidebar-ring: 45 45% 65%;
+
+    /* Dark Vintage Palette */
+    --vintage-ink: 30 15% 90%;
+    --vintage-sepia: 45 45% 65%;
+    --vintage-charcoal: 0 0% 12%;
+    --vintage-gold: 45 45% 70%;
+    --vintage-burgundy: 0 55% 45%;
+    --vintage-sage: 135 25% 55%;
+    --vintage-parchment: 15 25% 8%;
+    --vintage-cream: 15 20% 12%;
   }
 }
 
@@ -100,6 +146,60 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-vintage-body;
+  }
+
+  /* Vintage Typography Styles */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-playfair;
+  }
+
+  /* Subtle vintage text shadows */
+  .text-shadow-vintage {
+    text-shadow: var(--text-shadow-subtle);
+  }
+
+  .text-shadow-elegant {
+    text-shadow: var(--text-shadow-elegant);
+  }
+}
+
+@layer components {
+  /* Custom vintage button styles */
+  .btn-vintage-gold {
+    @apply bg-vintage-gold text-vintage-ink border border-vintage-gold/20 hover:bg-vintage-gold/80 transition-all duration-300;
+  }
+
+  .btn-vintage-outline {
+    @apply border-2 border-vintage-gold text-vintage-gold hover:bg-vintage-gold hover:text-vintage-ink transition-all duration-300;
+  }
+
+  /* Vintage card effects */
+  .card-vintage {
+    @apply bg-card border border-border/50 shadow-lg backdrop-blur-sm;
+    background-image: var(--gradient-vintage-shadow);
+  }
+
+  /* Vintage text styles */
+  .text-vintage-heading {
+    @apply font-playfair text-vintage-ink text-shadow-elegant;
+  }
+
+  .text-vintage-body {
+    @apply font-merriweather text-vintage-ink/80;
+  }
+
+  .text-vintage-accent {
+    @apply text-vintage-gold font-medium;
+  }
+
+  /* Vintage input styles */
+  .input-vintage {
+    @apply bg-vintage-cream/50 border-vintage-gold/30 focus:border-vintage-gold focus:ring-vintage-gold/20;
+  }
+
+  /* Vintage section backgrounds */
+  .section-vintage-paper {
+    background-image: var(--gradient-vintage-paper);
   }
 }
