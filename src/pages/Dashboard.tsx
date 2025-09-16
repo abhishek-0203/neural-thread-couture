@@ -40,10 +40,10 @@ export default function Dashboard() {
           .from('profiles')
           .select('*')
           .eq('user_id', user.id)
-          .single();
+          .maybeSingle();
 
         if (error) throw error;
-        setUserProfile(data);
+        setUserProfile(data ?? null);
       } catch (error) {
         console.error('Error fetching profile:', error);
       } finally {
@@ -64,7 +64,7 @@ export default function Dashboard() {
         .from('profiles')
         .select('*')
         .eq('user_id', otherUserId)
-        .single();
+        .maybeSingle();
 
       if (otherUserProfile) {
         setActiveChat({

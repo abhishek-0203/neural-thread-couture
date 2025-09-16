@@ -35,7 +35,7 @@ interface DesignerSignupFormProps {
 export function DesignerSignupForm({ onSuccess }: DesignerSignupFormProps) {
   const [loading, setLoading] = useState(false);
   const [expertise, setExpertise] = useState<string[]>([]);
-  const { signUp } = useAuth();
+  const { signUp, signIn } = useAuth();
   const { toast } = useToast();
   
   const { register, handleSubmit, formState: { errors }, setValue } = useForm<DesignerFormData>({
@@ -59,33 +59,52 @@ export function DesignerSignupForm({ onSuccess }: DesignerSignupFormProps) {
         return;
       }
 
-      // Get the current user after signup
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      if (user) {
-        // Create profile
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .insert({
-            user_id: user.id,
-            user_type: 'designer',
-            name: data.name,
-            location: data.location,
-            age: data.age,
-            experience: data.experience,
-            expertise: data.expertise,
-            bio: data.bio,
-          });
+      // Ensure we have a session before inserting profile (RLS requires auth.uid())
+      // Try to sign in immediately (helps when email confirmations are disabled)
+      await signIn(data.email, data.password);
 
-        if (profileError) {
-          toast({
-            title: "Profile Creation Failed",
-            description: profileError.message,
-            variant: "destructive",
-          });
-          setLoading(false);
-          return;
+      const waitForSession = async () => {
+        for (let i = 0; i < 15; i++) {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session?.user) return session.user;
+          await new Promise((res) => setTimeout(res, 200));
         }
+        return null;
+      };
+
+      const authedUser = await waitForSession();
+
+      if (!authedUser) {
+        toast({
+          title: "Check your email to confirm",
+          description: "We sent you a confirmation link. After confirming, log in to complete profile setup.",
+        });
+        setLoading(false);
+        return;
+      }
+
+      // Create profile
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .insert({
+          user_id: authedUser.id,
+          user_type: 'designer',
+          name: data.name,
+          location: data.location,
+          age: data.age,
+          experience: data.experience,
+          expertise: data.expertise,
+          bio: data.bio,
+        });
+
+      if (profileError) {
+        toast({
+          title: "Profile Creation Failed",
+          description: profileError.message,
+          variant: "destructive",
+        });
+        setLoading(false);
+        return;
       }
 
       toast({
