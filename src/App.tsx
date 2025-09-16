@@ -8,6 +8,9 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Index from "./pages/Index";
 import Tailors from "./pages/Tailors";
+import Designers from "./pages/Designers";
+import DesignerProfile from "./pages/DesignerProfile";
+import Community from "./pages/Community";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
@@ -79,6 +82,38 @@ function AppContent() {
             element={
               <ProtectedRoute>
                 <Tailors />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/designers" 
+            element={
+              <ProtectedRoute>
+                <Designers />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/designers/:category" 
+            element={
+              <ProtectedRoute>
+                <Designers />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/designer/:id" 
+            element={
+              <ProtectedRoute>
+                <DesignerProfile />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/community" 
+            element={
+              <ProtectedRoute>
+                <Community />
               </ProtectedRoute>
             } 
           />

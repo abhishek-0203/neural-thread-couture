@@ -82,7 +82,11 @@ const DesignerCategories = () => {
         {/* Categories Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {categories.map((category, index) => (
-            <Card key={index} className="card-vintage hover:shadow-xl transition-all duration-300 group cursor-pointer overflow-hidden">
+            <Card 
+              key={index} 
+              className="card-vintage hover:shadow-xl transition-all duration-300 group cursor-pointer overflow-hidden"
+              onClick={() => window.location.href = `/designers/${category.name.toLowerCase()}`}
+            >
               <div className="relative">
                 <div className="h-48 bg-gradient-to-br from-vintage-gold/20 to-vintage-burgundy/20 flex items-center justify-center">
                   <div className="text-6xl font-playfair font-bold text-vintage-gold/30 group-hover:text-vintage-gold/50 transition-colors duration-300">
@@ -135,7 +139,10 @@ const DesignerCategories = () => {
 
         {/* View All Button */}
         <div className="text-center mt-12">
-          <button className="btn-vintage-outline px-8 py-3 text-lg font-merriweather rounded-lg">
+          <button 
+            className="btn-vintage-outline px-8 py-3 text-lg font-merriweather rounded-lg"
+            onClick={() => window.location.href = '/designers'}
+          >
             Explore All Designers
           </button>
         </div>

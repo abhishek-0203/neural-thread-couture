@@ -21,7 +21,7 @@ export default function Auth() {
 
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate('/dashboard');
     }
   }, [user, navigate]);
 
@@ -42,7 +42,7 @@ export default function Auth() {
         title: "Welcome back!",
         description: "You have successfully logged in.",
       });
-      navigate('/');
+      navigate('/dashboard');
     }
     
     setLoading(false);
@@ -122,11 +122,11 @@ export default function Auth() {
             </TabsList>
             
             <TabsContent value="customer">
-              <CustomerSignupForm onSuccess={() => navigate('/')} />
+              <CustomerSignupForm onSuccess={() => navigate('/dashboard')} />
             </TabsContent>
             
             <TabsContent value="designer">
-              <DesignerSignupForm onSuccess={() => navigate('/')} />
+              <DesignerSignupForm onSuccess={() => navigate('/dashboard')} />
             </TabsContent>
           </Tabs>
           

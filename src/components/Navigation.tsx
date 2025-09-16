@@ -31,7 +31,7 @@ const Navigation = () => {
   const navItems = [
     { name: 'Designers', href: '/designers', icon: Palette },
     { name: 'Tailors', href: '/tailors', icon: Scissors },
-    { name: 'AI Stylist', href: '/stylist', icon: MessageCircle },
+    { name: 'Dashboard', href: '/dashboard', icon: MessageCircle },
     { name: 'Community', href: '/community', icon: Users },
   ];
 

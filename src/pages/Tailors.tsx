@@ -2,8 +2,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { MapPin, Star, Phone, Clock, Award } from 'lucide-react';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
 
 const Tailors = () => {
   const cities = [
@@ -127,42 +125,38 @@ const Tailors = () => {
   ];
 
   return (
-    <>
-      <Navigation />
-      <div className="min-h-screen bg-gradient-vintage-paper">
+    <div className="min-h-screen bg-canvas pt-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <section className="py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-vintage-gold/10 border border-vintage-gold/20 text-vintage-gold text-sm font-medium mb-6">
-                <Award className="w-4 h-4 mr-2" />
-                Skilled Artisan Network
-              </div>
-
-              <h1 className="text-5xl md:text-6xl font-playfair font-bold text-vintage-ink mb-6 text-shadow-elegant">
-                Expert <span className="text-vintage-gold">Tailors</span>
-              </h1>
-              
-              <p className="text-xl text-vintage-ink/80 font-merriweather max-w-3xl mx-auto">
-                Connect with master craftsmen across India. From traditional wear to contemporary designs, 
-                find skilled tailors who bring your fashion vision to life with precision and artistry.
-              </p>
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-antique-gold/10 border border-antique-gold/20 text-antique-gold text-sm font-medium mb-6">
+              <Award className="w-4 h-4 mr-2" />
+              Skilled Artisan Network
             </div>
+
+            <h1 className="text-5xl md:text-6xl font-playfair font-bold text-ink mb-6">
+              Expert <span className="text-antique-gold">Tailors</span>
+            </h1>
+            
+            <p className="text-xl text-muted-ink max-w-3xl mx-auto">
+              Connect with master craftsmen across India. From traditional wear to contemporary designs, 
+              find skilled tailors who bring your fashion vision to life with precision and artistry.
+            </p>
           </div>
         </section>
 
-      {/* Cities Grid */}
-      <section className="pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Cities Grid */}
+        <section className="pb-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {cities.map((city, index) => (
               <div key={index} className="space-y-6">
                 {/* City Header */}
                 <div className="flex items-center justify-between">
-                  <h2 className="text-3xl font-playfair font-bold text-vintage-ink">
+                  <h2 className="text-3xl font-playfair font-bold text-ink">
                     {city.name}
                   </h2>
-                  <Badge className="bg-vintage-gold/10 text-vintage-gold border-vintage-gold/20">
+                  <Badge className="bg-antique-gold/10 text-antique-gold border-antique-gold/20">
                     {city.tailors} Tailors
                   </Badge>
                 </div>
@@ -170,14 +164,14 @@ const Tailors = () => {
                 {/* Featured Tailors */}
                 <div className="space-y-4">
                   {city.featured.map((tailor, tailorIndex) => (
-                    <Card key={tailorIndex} className="card-vintage hover:shadow-lg transition-all duration-300">
+                    <Card key={tailorIndex} className="bg-card border-muted-ink/20 hover:shadow-lg transition-all duration-300">
                       <CardContent className="p-6">
                         <div className="flex justify-between items-start mb-4">
                           <div>
-                            <h3 className="text-xl font-playfair font-semibold text-vintage-ink mb-1">
+                            <h3 className="text-xl font-playfair font-semibold text-ink mb-1">
                               {tailor.name}
                             </h3>
-                            <div className="flex items-center gap-2 text-sm text-vintage-ink/70 mb-2">
+                            <div className="flex items-center gap-2 text-sm text-muted-ink mb-2">
                               <MapPin className="w-4 h-4" />
                               {tailor.location}
                             </div>
@@ -185,11 +179,11 @@ const Tailors = () => {
                           
                           <div className="text-right">
                             <div className="flex items-center gap-1 mb-1">
-                              <Star className="w-4 h-4 text-vintage-gold fill-current" />
-                              <span className="text-sm font-medium text-vintage-ink">{tailor.rating}</span>
-                              <span className="text-xs text-vintage-ink/60">({tailor.reviews})</span>
+                              <Star className="w-4 h-4 text-antique-gold fill-current" />
+                              <span className="text-sm font-medium text-ink">{tailor.rating}</span>
+                              <span className="text-xs text-muted-ink">({tailor.reviews})</span>
                             </div>
-                            <div className="flex items-center gap-1 text-xs text-vintage-ink/60">
+                            <div className="flex items-center gap-1 text-xs text-muted-ink">
                               <Clock className="w-3 h-3" />
                               {tailor.experience}
                             </div>
@@ -198,13 +192,13 @@ const Tailors = () => {
 
                         {/* Specialties */}
                         <div className="mb-4">
-                          <p className="text-sm text-vintage-gold font-medium mb-2">Specialties:</p>
+                          <p className="text-sm text-antique-gold font-medium mb-2">Specialties:</p>
                           <div className="flex flex-wrap gap-2">
                             {tailor.specialties.map((specialty, specIndex) => (
                               <Badge 
                                 key={specIndex} 
                                 variant="outline" 
-                                className="border-vintage-gold/30 text-vintage-ink text-xs"
+                                className="border-antique-gold/30 text-ink text-xs"
                               >
                                 {specialty}
                               </Badge>
@@ -214,11 +208,11 @@ const Tailors = () => {
 
                         {/* Actions */}
                         <div className="flex gap-3">
-                          <Button size="sm" className="btn-vintage-gold flex-1">
+                          <Button size="sm" className="bg-antique-gold hover:bg-antique-gold/90 text-ink flex-1">
                             <Phone className="w-4 h-4 mr-2" />
                             Contact
                           </Button>
-                          <Button variant="outline" size="sm" className="border-vintage-gold/30 text-vintage-ink hover:bg-vintage-gold/10">
+                          <Button variant="outline" size="sm" className="border-antique-gold/30 text-ink hover:bg-antique-gold/10">
                             View Profile
                           </Button>
                         </div>
@@ -230,18 +224,16 @@ const Tailors = () => {
                 {/* Show More Button */}
                 <Button 
                   variant="outline" 
-                  className="w-full border-vintage-gold/30 text-vintage-ink hover:bg-vintage-gold/10"
+                  className="w-full border-antique-gold/30 text-ink hover:bg-antique-gold/10"
                 >
                   View All Tailors in {city.name}
                 </Button>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
       </div>
-      <Footer />
-    </>
+    </div>
   );
 };
 
