@@ -54,7 +54,7 @@ const Designers = () => {
     const matchesSearch = designer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          designer.location.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesLocation = !locationFilter || designer.location.toLowerCase().includes(locationFilter.toLowerCase());
-    const matchesExperience = !experienceFilter || 
+    const matchesExperience = experienceFilter === 'all' || !experienceFilter || 
       (experienceFilter === 'junior' && (designer.experience || 0) < 3) ||
       (experienceFilter === 'mid' && (designer.experience || 0) >= 3 && (designer.experience || 0) < 8) ||
       (experienceFilter === 'senior' && (designer.experience || 0) >= 8);
@@ -129,7 +129,7 @@ const Designers = () => {
                 <SelectValue placeholder="Experience level" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Experience</SelectItem>
+                <SelectItem value="all">All Experience</SelectItem>
                 <SelectItem value="junior">Junior (0-3 years)</SelectItem>
                 <SelectItem value="mid">Mid-level (3-8 years)</SelectItem>
                 <SelectItem value="senior">Senior (8+ years)</SelectItem>
@@ -140,7 +140,7 @@ const Designers = () => {
               onClick={() => {
                 setSearchTerm('');
                 setLocationFilter('');
-                setExperienceFilter('');
+                setExperienceFilter('all');
               }}
               className="border-muted-ink/20"
             >
