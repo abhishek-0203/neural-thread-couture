@@ -134,10 +134,10 @@ const AIStyleAssistant = () => {
         </Button>
       </div>
 
-      {/* Chat Modal Placeholder */}
+      {/* Chat Modal - Redirect to Dashboard */}
       {isOpen && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <Card className="card-vintage max-w-2xl w-full max-h-[80vh] overflow-hidden">
+          <Card className="card-vintage max-w-md w-full">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-playfair font-semibold text-vintage-ink">AI Fashion Assistant</h3>
@@ -145,11 +145,29 @@ const AIStyleAssistant = () => {
                   ×
                 </Button>
               </div>
-              <div className="text-center py-12">
+              <div className="text-center py-8">
                 <MessageCircle className="w-16 h-16 text-vintage-gold mx-auto mb-4" />
-                <p className="text-vintage-ink/80 font-merriweather">
-                  AI Stylist interface will be available after Supabase integration for backend functionality.
+                <h4 className="text-lg font-semibold text-vintage-ink mb-2">
+                  Ready to Style with AI?
+                </h4>
+                <p className="text-vintage-ink/80 font-merriweather mb-6">
+                  Access your personal AI stylist on the dashboard for personalized fashion advice.
                 </p>
+                <div className="space-y-3">
+                  <Button 
+                    onClick={() => window.location.href = '/dashboard'}
+                    className="w-full bg-vintage-gold hover:bg-vintage-gold/90 text-vintage-ink"
+                  >
+                    Go to Dashboard
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    onClick={() => window.location.href = '/auth'}
+                    className="w-full"
+                  >
+                    Sign In First
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>

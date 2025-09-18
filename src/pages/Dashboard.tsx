@@ -104,11 +104,38 @@ export default function Dashboard() {
       <div className="min-h-screen bg-canvas flex items-center justify-center">
         <Card className="max-w-md">
           <CardHeader>
-            <CardTitle className="text-center">Profile Not Found</CardTitle>
+            <CardTitle className="text-center">Complete Your Profile</CardTitle>
           </CardHeader>
-          <CardContent className="text-center">
-            <p className="text-muted-ink mb-4">Please complete your profile setup first.</p>
-            <Button onClick={() => window.location.href = '/auth'}>
+          <CardContent className="text-center space-y-4">
+            <p className="text-muted-ink">Please complete your profile setup to access the dashboard.</p>
+            <Button 
+              onClick={async () => {
+                const user = await supabase.auth.getUser();
+                if (user.data.user) {
+                  // Create a minimal profile
+                  const { error } = await supabase
+                    .from('profiles')
+                    .insert({
+                      user_id: user.data.user.id,
+                      user_type: 'customer',
+                      name: user.data.user.email?.split('@')[0] || 'User',
+                      location: 'Not specified',
+                      age: 25,
+                    });
+                  
+                  if (!error) {
+                    window.location.reload();
+                  }
+                }
+              }}
+              className="bg-antique-gold hover:bg-antique-gold/90 text-ink"
+            >
+              Create Profile
+            </Button>
+            <Button 
+              variant="outline" 
+              onClick={() => window.location.href = '/auth'}
+            >
               Go to Profile Setup
             </Button>
           </CardContent>
