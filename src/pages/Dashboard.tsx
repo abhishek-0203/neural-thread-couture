@@ -33,7 +33,13 @@ export default function Dashboard() {
 
   useEffect(() => {
     const fetchUserProfile = async () => {
-      if (!user) return;
+      if (!user) {
+        console.log('No user found, skipping profile fetch');
+        setLoading(false);
+        return;
+      }
+      
+      console.log('Fetching profile for user:', user.id);
       
       try {
         const { data, error } = await supabase
@@ -42,7 +48,12 @@ export default function Dashboard() {
           .eq('user_id', user.id)
           .maybeSingle();
 
-        if (error) throw error;
+        if (error) {
+          console.error('Profile fetch error:', error);
+          throw error;
+        }
+        
+        console.log('Profile data received:', data);
         setUserProfile(data ?? null);
       } catch (error) {
         console.error('Error fetching profile:', error);
