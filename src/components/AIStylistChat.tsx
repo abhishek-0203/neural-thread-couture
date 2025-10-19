@@ -151,28 +151,28 @@ export const AIStylistChat = ({ userProfile, className = "" }: AIStylistChatProp
   };
 
   const ChatBubble = ({ message }: { message: ChatMessage }) => (
-    <div className={`flex gap-3 mb-4 ${message.role === 'user' ? 'justify-end' : ''}`}>
+    <div className={`flex gap-2 sm:gap-3 ${message.role === 'user' ? 'justify-end' : ''}`}>
       {message.role === 'assistant' && (
-        <Avatar className="h-8 w-8 bg-gradient-to-br from-purple-500 to-pink-500">
+        <Avatar className="h-8 w-8 bg-gradient-to-br from-purple-500 to-pink-500 flex-shrink-0">
           <AvatarFallback className="bg-transparent text-white text-xs">
             <Sparkles className="h-4 w-4" />
           </AvatarFallback>
         </Avatar>
       )}
       
-      <div className={`max-w-[80%] rounded-lg p-3 ${
+      <div className={`max-w-[85%] sm:max-w-[75%] rounded-lg p-2.5 sm:p-3 ${
         message.role === 'user' 
           ? 'bg-antique-gold text-ink ml-auto' 
           : 'bg-muted text-ink'
       }`}>
-        <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-        <span className="text-xs opacity-70 mt-1 block">
+        <p className="text-sm whitespace-pre-wrap break-words">{message.content}</p>
+        <span className="text-xs opacity-70 mt-1.5 block">
           {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
         </span>
       </div>
 
       {message.role === 'user' && (
-        <Avatar className="h-8 w-8 bg-antique-gold">
+        <Avatar className="h-8 w-8 bg-antique-gold flex-shrink-0">
           <AvatarFallback className="bg-transparent text-ink text-xs">
             {userProfile.name.charAt(0).toUpperCase()}
           </AvatarFallback>
@@ -182,62 +182,65 @@ export const AIStylistChat = ({ userProfile, className = "" }: AIStylistChatProp
   );
 
   return (
-    <Card className={`bg-canvas border-muted-ink/20 flex flex-col h-[600px] ${className}`}>
-      <CardHeader className="border-b border-muted-ink/20 pb-4">
+    <Card className={`bg-canvas border-muted-ink/20 flex flex-col ${className}`}>
+      <CardHeader className="border-b border-muted-ink/20 pb-3 px-4 py-3">
         <div className="flex items-center gap-3">
-          <Avatar className="h-10 w-10 bg-gradient-to-br from-purple-500 to-pink-500">
+          <Avatar className="h-10 w-10 bg-gradient-to-br from-purple-500 to-pink-500 flex-shrink-0">
             <AvatarFallback className="bg-transparent text-white">
               <Sparkles className="h-5 w-5" />
             </AvatarFallback>
           </Avatar>
-          <div>
-            <CardTitle className="text-ink text-lg">Nova - AI Fashion Stylist</CardTitle>
-            <p className="text-sm text-muted-ink">Personalized styling advice just for you</p>
+          <div className="min-w-0 flex-1">
+            <CardTitle className="text-ink text-base sm:text-lg truncate">Nova - AI Fashion Stylist</CardTitle>
+            <p className="text-xs sm:text-sm text-muted-ink truncate">Personalized styling advice just for you</p>
           </div>
         </div>
       </CardHeader>
 
-      <CardContent className="flex-1 p-0 flex flex-col">
+      <CardContent className="flex-1 p-0 flex flex-col min-h-0">
         <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
-          {messages.map((message, idx) => (
-            <ChatBubble key={idx} message={message} />
-          ))}
-          
-          {(loading || streamingContent) && (
-            <div className="flex gap-3 mb-4">
-              <Avatar className="h-8 w-8 bg-gradient-to-br from-purple-500 to-pink-500">
-                <AvatarFallback className="bg-transparent text-white text-xs">
-                  <Sparkles className="h-4 w-4" />
-                </AvatarFallback>
-              </Avatar>
-              <div className="bg-muted rounded-lg p-3">
-                {streamingContent ? (
-                  <p className="text-sm whitespace-pre-wrap">{streamingContent}</p>
-                ) : (
-                  <div className="flex items-center gap-2">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    <span className="text-sm text-muted-ink">Nova is thinking...</span>
-                  </div>
-                )}
+          <div className="space-y-4">
+            {messages.map((message, idx) => (
+              <ChatBubble key={idx} message={message} />
+            ))}
+            
+            {(loading || streamingContent) && (
+              <div className="flex gap-3">
+                <Avatar className="h-8 w-8 bg-gradient-to-br from-purple-500 to-pink-500 flex-shrink-0">
+                  <AvatarFallback className="bg-transparent text-white text-xs">
+                    <Sparkles className="h-4 w-4" />
+                  </AvatarFallback>
+                </Avatar>
+                <div className="bg-muted rounded-lg p-3 flex-1">
+                  {streamingContent ? (
+                    <p className="text-sm whitespace-pre-wrap text-ink">{streamingContent}</p>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <Loader2 className="h-4 w-4 animate-spin text-muted-ink" />
+                      <span className="text-sm text-muted-ink">Nova is thinking...</span>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </ScrollArea>
 
-        <div className="border-t border-muted-ink/20 p-4">
+        <div className="border-t border-muted-ink/20 p-3 sm:p-4 bg-canvas">
           <div className="flex gap-2">
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Ask about styling, trends, or outfit suggestions..."
-              className="border-muted-ink/20 focus:border-antique-gold"
+              className="flex-1 border-muted-ink/20 focus:border-antique-gold text-sm"
               disabled={loading}
             />
             <Button 
               onClick={() => sendMessage(input)}
               disabled={loading || !input.trim()}
-              className="bg-antique-gold hover:bg-antique-gold/90 text-ink"
+              className="bg-antique-gold hover:bg-antique-gold/90 text-ink flex-shrink-0"
+              size="icon"
             >
               <Send className="h-4 w-4" />
             </Button>
