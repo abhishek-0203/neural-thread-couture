@@ -1,1 +1,7 @@
 project_id = "hgeojvutyyypkoysuuvh"
+
+[functions.ai-stylist]
+verify_jwt = false
+
+[functions.ai-stylist-stream]
+verify_jwt = false

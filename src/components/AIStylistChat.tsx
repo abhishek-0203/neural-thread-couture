@@ -5,7 +5,6 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Send, Sparkles, Loader2 } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { Tables } from '@/integrations/supabase/types';
@@ -33,7 +32,9 @@ export const AIStylistChat = ({ userProfile, className = "" }: AIStylistChatProp
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [streamingContent, setStreamingContent] = useState('');
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const wsRef = useRef<WebSocket | null>(null);
   const { user } = useAuth();
   const { toast } = useToast();
 
@@ -41,10 +42,84 @@ export const AIStylistChat = ({ userProfile, className = "" }: AIStylistChatProp
     if (scrollAreaRef.current) {
       scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
     }
-  }, [messages]);
+  }, [messages, streamingContent]);
 
-  const sendMessage = async (content: string) => {
-    if (!content.trim() || loading || !user) return;
+  useEffect(() => {
+    // Initialize WebSocket connection
+    const ws = new WebSocket(`wss://hgeojvutyyypkoysuuvh.supabase.co/functions/v1/ai-stylist-stream`);
+    
+    ws.onopen = () => {
+      console.log('WebSocket connected to AI Stylist');
+    };
+    
+    ws.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        
+        switch (data.type) {
+          case 'connected':
+            console.log('AI Stylist ready');
+            break;
+            
+          case 'start':
+            setStreamingContent('');
+            break;
+            
+          case 'delta':
+            setStreamingContent(prev => prev + data.content);
+            break;
+            
+          case 'done':
+            if (streamingContent) {
+              const aiMessage: ChatMessage = {
+                role: 'assistant',
+                content: streamingContent,
+                timestamp: new Date()
+              };
+              setMessages(prev => [...prev, aiMessage]);
+              setStreamingContent('');
+            }
+            setLoading(false);
+            break;
+            
+          case 'error':
+            console.error('AI Stylist error:', data.error);
+            toast({
+              title: "AI Stylist Error",
+              description: data.error,
+              variant: "destructive",
+            });
+            setLoading(false);
+            setStreamingContent('');
+            break;
+        }
+      } catch (error) {
+        console.error('Error parsing WebSocket message:', error);
+      }
+    };
+    
+    ws.onerror = (error) => {
+      console.error('WebSocket error:', error);
+      toast({
+        title: "Connection Error",
+        description: "Failed to connect to AI Stylist",
+        variant: "destructive",
+      });
+    };
+    
+    ws.onclose = () => {
+      console.log('WebSocket disconnected');
+    };
+    
+    wsRef.current = ws;
+    
+    return () => {
+      ws.close();
+    };
+  }, [toast]);
+
+  const sendMessage = (content: string) => {
+    if (!content.trim() || loading || !user || !wsRef.current) return;
 
     setLoading(true);
     const userMessage: ChatMessage = { 
@@ -56,47 +131,16 @@ export const AIStylistChat = ({ userProfile, className = "" }: AIStylistChatProp
     setMessages(prev => [...prev, userMessage]);
     setInput('');
 
-    try {
-      const conversationHistory = messages.map(msg => ({
-        role: msg.role,
-        content: msg.content
-      }));
+    const conversationHistory = messages.map(msg => ({
+      role: msg.role,
+      content: msg.content
+    }));
 
-      const { data, error } = await supabase.functions.invoke('ai-stylist', {
-        body: {
-          message: content.trim(),
-          userProfile,
-          conversationHistory
-        }
-      });
-
-      if (error) throw error;
-
-      const aiMessage: ChatMessage = {
-        role: 'assistant',
-        content: data.response,
-        timestamp: new Date()
-      };
-
-      setMessages(prev => [...prev, aiMessage]);
-    } catch (error: any) {
-      console.error('AI Stylist error:', error);
-      toast({
-        title: "AI Stylist Error",
-        description: error.message || "Failed to get styling advice. Please try again.",
-        variant: "destructive",
-      });
-
-      // Add error message
-      const errorMessage: ChatMessage = {
-        role: 'assistant',
-        content: "I apologize, but I'm having trouble connecting right now. Please try asking your question again in a moment.",
-        timestamp: new Date()
-      };
-      setMessages(prev => [...prev, errorMessage]);
-    } finally {
-      setLoading(false);
-    }
+    wsRef.current.send(JSON.stringify({
+      message: content.trim(),
+      userProfile,
+      conversationHistory
+    }));
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -159,16 +203,22 @@ export const AIStylistChat = ({ userProfile, className = "" }: AIStylistChatProp
             <ChatBubble key={idx} message={message} />
           ))}
           
-          {loading && (
+          {(loading || streamingContent) && (
             <div className="flex gap-3 mb-4">
               <Avatar className="h-8 w-8 bg-gradient-to-br from-purple-500 to-pink-500">
                 <AvatarFallback className="bg-transparent text-white text-xs">
                   <Sparkles className="h-4 w-4" />
                 </AvatarFallback>
               </Avatar>
-              <div className="bg-muted rounded-lg p-3 flex items-center gap-2">
-                <Loader2 className="h-4 w-4 animate-spin" />
-                <span className="text-sm text-muted-ink">Nova is thinking...</span>
+              <div className="bg-muted rounded-lg p-3">
+                {streamingContent ? (
+                  <p className="text-sm whitespace-pre-wrap">{streamingContent}</p>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <span className="text-sm text-muted-ink">Nova is thinking...</span>
+                  </div>
+                )}
               </div>
             </div>
           )}
