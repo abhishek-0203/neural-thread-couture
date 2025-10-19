@@ -75,10 +75,11 @@ Communication Style:
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
-  } catch (error) {
-    console.error('Error in ai-stylist function:', error);
+  } catch (err) {
+    console.error('Error in ai-stylist function:', err);
+    const message = err instanceof Error ? err.message : 'An unexpected error occurred';
     return new Response(JSON.stringify({ 
-      error: error.message || 'An unexpected error occurred'
+      error: message
     }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
