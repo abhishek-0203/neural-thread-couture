@@ -208,11 +208,23 @@ const Tailors = () => {
 
                         {/* Actions */}
                         <div className="flex gap-3">
-                          <Button size="sm" className="bg-antique-gold hover:bg-antique-gold/90 text-ink flex-1">
+                          <Button 
+                            size="sm" 
+                            className="bg-antique-gold hover:bg-antique-gold/90 text-ink flex-1"
+                            onClick={() => window.open(`tel:${tailor.contact}`)}
+                          >
                             <Phone className="w-4 h-4 mr-2" />
                             Contact
                           </Button>
-                          <Button variant="outline" size="sm" className="border-antique-gold/30 text-ink hover:bg-antique-gold/10">
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="border-antique-gold/30 text-ink hover:bg-antique-gold/10"
+                            onClick={() => {
+                              // Navigate to tailor profile or show details
+                              alert(`View ${tailor.name}'s full profile - Feature coming soon!`);
+                            }}
+                          >
                             View Profile
                           </Button>
                         </div>
