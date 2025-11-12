@@ -228,7 +228,11 @@ export default function Dashboard() {
           </div>
           
           <div className="text-right">
-            <Button variant="outline" size="sm">
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => window.location.href = '/auth'}
+            >
               <Settings className="h-4 w-4 mr-2" />
               Edit Profile
             </Button>

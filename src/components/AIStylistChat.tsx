@@ -105,6 +105,7 @@ export const AIStylistChat = ({ userProfile, className = "" }: AIStylistChatProp
         description: "Failed to connect to AI Stylist",
         variant: "destructive",
       });
+      setLoading(false);
     };
     
     ws.onclose = () => {
@@ -114,9 +115,11 @@ export const AIStylistChat = ({ userProfile, className = "" }: AIStylistChatProp
     wsRef.current = ws;
     
     return () => {
-      ws.close();
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.close();
+      }
     };
-  }, [toast]);
+  }, [toast, streamingContent]);
 
   const sendMessage = (content: string) => {
     if (!content.trim() || loading || !user || !wsRef.current) return;
