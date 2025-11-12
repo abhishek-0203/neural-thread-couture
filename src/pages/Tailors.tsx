@@ -2,6 +2,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { MapPin, Star, Phone, Clock, Award } from 'lucide-react';
+import { DemoDataButton } from '@/components/DemoDataButton';
 
 const Tailors = () => {
   const cities = [
@@ -139,10 +140,12 @@ const Tailors = () => {
               Expert <span className="text-antique-gold">Tailors</span>
             </h1>
             
-            <p className="text-xl text-muted-ink max-w-3xl mx-auto">
+            <p className="text-xl text-muted-ink max-w-3xl mx-auto mb-4">
               Connect with master craftsmen across India. From traditional wear to contemporary designs, 
               find skilled tailors who bring your fashion vision to life with precision and artistry.
             </p>
+            
+            <DemoDataButton />
           </div>
         </section>
 

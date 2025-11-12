@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Star, MapPin, Search, Filter, User } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { Tables } from '@/integrations/supabase/types';
+import { DemoDataButton } from '@/components/DemoDataButton';
 
 type Profile = Tables<'profiles'>;
 
@@ -84,9 +85,10 @@ const Designers = () => {
               : 'Fashion Designers'
             }
           </h1>
-          <p className="text-lg text-muted-ink max-w-2xl mx-auto">
+          <p className="text-lg text-muted-ink max-w-2xl mx-auto mb-4">
             Discover talented fashion designers who can bring your vision to life
           </p>
+          <DemoDataButton />
         </div>
 
         {/* Category Tabs */}
@@ -221,7 +223,7 @@ const Designers = () => {
                         asChild 
                         className="flex-1 bg-antique-gold hover:bg-antique-gold/90 text-ink"
                       >
-                        <Link to={`/designer/${designer.id}`}>
+                        <Link to={`/provider/${designer.id}`}>
                           View Profile
                         </Link>
                       </Button>

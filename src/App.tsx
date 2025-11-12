@@ -14,6 +14,7 @@ import Community from "./pages/Community";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import ProviderProfile from "./pages/ProviderProfile";
 
 const queryClient = new QueryClient();
 
@@ -106,6 +107,14 @@ function AppContent() {
             element={
               <ProtectedRoute>
                 <DesignerProfile />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/provider/:id" 
+            element={
+              <ProtectedRoute>
+                <ProviderProfile />
               </ProtectedRoute>
             } 
           />

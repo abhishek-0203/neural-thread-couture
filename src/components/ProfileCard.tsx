@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { MapPin, MessageSquare, Star } from 'lucide-react';
 import { Tables } from '@/integrations/supabase/types';
+import { useNavigate } from 'react-router-dom';
 
 type Profile = Tables<'profiles'>;
 
@@ -22,6 +23,8 @@ export const ProfileCard = ({
   onChatClick,
   className = "" 
 }: ProfileCardProps) => {
+  const navigate = useNavigate();
+  
   const getProfileTypeColor = (userType: string) => {
     switch (userType) {
       case 'designer': return 'bg-purple-100 text-purple-800 border-purple-200';
@@ -51,17 +54,27 @@ export const ProfileCard = ({
                 </Badge>
               </div>
               
-              {showChatButton && onChatClick && (
+              <div className="flex gap-2 ml-2 flex-shrink-0">
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => onChatClick(profile.user_id)}
-                  className="ml-2 flex-shrink-0"
+                  onClick={() => navigate(`/provider/${profile.id}`)}
+                  className="border-muted-ink/20"
                 >
-                  <MessageSquare className="h-4 w-4 mr-1" />
-                  Chat
+                  View
                 </Button>
-              )}
+                {showChatButton && onChatClick && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => onChatClick(profile.user_id)}
+                    className="bg-antique-gold hover:bg-antique-gold/90 text-ink border-0"
+                  >
+                    <MessageSquare className="h-4 w-4 mr-1" />
+                    Chat
+                  </Button>
+                )}
+              </div>
             </div>
             
             {profile.user_type === 'designer' && profile.expertise && profile.expertise.length > 0 && (
